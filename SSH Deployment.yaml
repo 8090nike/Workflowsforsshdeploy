@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-laREMOTE_USERNAME
 
     steps:
       - name: Checkout Repository
@@ -16,23 +16,23 @@ jobs:
       - name: Configure SSH
         uses: webfactory/ssh-agent@v0.9.0
         with:
-          ssh-private-key: ${{ secrets.https://github.com/8090nike/Workflowsforsshdeploy/blob/main/test1 }}
+          ssh-private-key: ${{ secrets.SSH_PASSWORD }}
 
       - name: Git Pull
         run: |
           cd ${{ github.workspace }}
-          ssh-keyscan -t rsa ${{ secrets.192.168.1.15 }} >> ~/.ssh/known_hosts
-          ssh ${{ secrets.test }}@${{ secrets.92.168.1.15 }} "cd ${{ secrets./home/ }} && git pull origin main"
+          ssh-keyscan -t rsa ${{ secrets.REMOTE_HOST }} >> ~/.ssh/known_hosts
+          ssh ${{ secrets.REMOTE_USERNAME }}@${{ secrets.REMOTE_HOST }} "cd ${{ secrets.SSH_PATH }} && git pull origin main"
           echo "Successfully pulled repo."
 
       - name: Check Nginx configuration
         run: |
           echo "Checking nginx config"
-          ssh ${{ secrets.test }}@${{ secrets.192.168.1.15 }} "sudo /usr/sbin/nginx -t 2>&1"
+          ssh ${{ secrets.REMOTE_USERNAME }}@${{ secrets.REMOTE_HOST }} "sudo /usr/sbin/nginx -t 2>&1"
           echo "Nginx configuration check completed."
 
       - name: Restart Nginx service
         if: success()
         run: |
-          ssh ${{ secrets.test }}@${{ secrets.192.168.1.15 }} "sudo /bin/systemctl restart nginx"
+          ssh ${{ secrets.REMOTE_USERNAME }}@${{ secrets.REMOTE_HOST }} "sudo /bin/systemctl restart nginx"
           echo "Nginx service restarted successfully"
