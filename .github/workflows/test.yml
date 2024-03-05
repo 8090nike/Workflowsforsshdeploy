@@ -1,4 +1,29 @@
-name: Run Script on Remote Server
+# name: Run Script on Remote Server
+
+# on:
+#   push:
+#     branches:
+#       - main
+
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v2
+
+#       - name: Run script on remote server
+#         uses: appleboy/ssh-action@master
+#         with:
+#           host: ${{ secrets.REMOTE_HOST }}
+#           username: ${{ secrets.REMOTE_USERNAME }}
+#           password: ${{ secrets.SSH_PASSWORD }}
+#           port: ${{ secrets.SSH_PORT }}
+#           script: |
+#             # Your script commands here
+#             echo "Hello from the remote server"
+name: List Folders on Linux Server
 
 on:
   push:
@@ -6,14 +31,14 @@ on:
       - main
 
 jobs:
-  deploy:
+  list-folders:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Run script on remote server
+      - name: List folders on remote server
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.REMOTE_HOST }}
@@ -21,5 +46,4 @@ jobs:
           password: ${{ secrets.SSH_PASSWORD }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            # Your script commands here
-            echo "Hello from the remote server"
+            sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.REMOTE_USERNAME }}@${{ secrets.REMOTE_HOST }} -p ${{ secrets.SSH_PORT }} "ls -l"
