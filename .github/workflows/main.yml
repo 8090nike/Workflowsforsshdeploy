@@ -20,9 +20,9 @@ jobs:
         run: |
           #cd $GITHUB_WORKSPACE
           #sshpass -p "${{ secrets.SSH_PASSWORD }}" cp -o StrictHostKeyChecking=no https://github.com/8090nike/Workflowsforsshdeploy/blob/main/helloworld.py ${{ secrets.REMOTE_USERNAME }}@${{ secrets.REMOTE_HOST }}:/home/helloworld.py
-          #sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.REMOTE_USERNAME }}@${{ secrets.REMOTE_HOST }} -p ${{ secrets.SSH_PORT }} "wget -P /tmp/ https://github.com/8090nike/Workflowsforsshdeploy/blob/main/helloworld.py"
+          sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.REMOTE_USERNAME }}@${{ secrets.REMOTE_HOST }} -p ${{ secrets.SSH_PORT }} "wget -P /tmp/ https://raw.githubusercontent.com/8090nike/openshift-jenkins-cicd/main/helloworld.py"
       - name: Run script on remote server
         run: |
-          #sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.REMOTE_USERNAME }}@${{ secrets.REMOTE_HOST }} -p ${{ secrets.SSH_PORT }} "cp /tmp/helloworld.py /home/"
+          sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.REMOTE_USERNAME }}@${{ secrets.REMOTE_HOST }} -p ${{ secrets.SSH_PORT }} "cp /tmp/helloworld.py /home/"
           sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.REMOTE_USERNAME }}@${{ secrets.REMOTE_HOST }} -p ${{ secrets.SSH_PORT }} "chmod +x /home/helloworld.py"
           sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.REMOTE_USERNAME }}@${{ secrets.REMOTE_HOST }} -p ${{ secrets.SSH_PORT }} "python3 /home/helloworld.py"
