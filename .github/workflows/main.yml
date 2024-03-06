@@ -17,12 +17,12 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y sshpass
-          sudo apt-get install -y scp
+          #sudo apt-get install -y scp
 
       - name: Deploy script to remote server
         run: |
           cd $GITHUB_WORKSPACE
-          sshpass -p "${{ secrets.SSH_PASSWORD }}" scp -o StrictHostKeyChecking=no https://github.com/8090nike/Workflowsforsshdeploy/blob/main/helloworld.py ${{ secrets.REMOTE_USERNAME }}@${{ secrets.REMOTE_HOST }}:/home/helloworld.py
+          sshpass -p "${{ secrets.SSH_PASSWORD }}" cp -o StrictHostKeyChecking=no https://github.com/8090nike/Workflowsforsshdeploy/blob/main/helloworld.py ${{ secrets.REMOTE_USERNAME }}@${{ secrets.REMOTE_HOST }}:/home/helloworld.py
           #sshpass -p "${{ secrets.SSH_PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.REMOTE_USERNAME }}@${{ secrets.REMOTE_HOST }} -p ${{ secrets.SSH_PORT }} "touch /home/test.txt"
       - name: Run script on remote server
         run: |
