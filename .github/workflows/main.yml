@@ -14,7 +14,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install sshpass
-        run: sudo apt-get update && sudo apt-get install -y sshpass scp
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y sshpass
+          sudo apt-get install -y scp
 
       - name: Deploy script to remote server
         run: |
